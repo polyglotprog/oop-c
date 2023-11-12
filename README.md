@@ -1,3 +1,5 @@
+![Object-Oriented Programming in C](/oop-in-c.png)
+
 # Object-Oriented Programming in C
 Implementations of Object-Oriented Programming in C. Based on concepts from the
 book, [Object-Oriented Programming With ANSI-C], and especially this blogpost:
