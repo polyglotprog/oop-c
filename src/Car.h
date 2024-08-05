@@ -9,9 +9,9 @@ typedef struct Car Car;
 typedef struct CarVtable CarVtable;
 
 /* Methods */
-void Car_init(void *car, int capacity, int topSpeed, int numberOfWheels);
-Car *Car_create(int capacity, int topSpeed, int numberOfWheels);
-void Car_destroy(Car *car);
+void Car_construct(void *car, int capacity, int topSpeed, int numberOfWheels);
+Car *Car_new(int capacity, int topSpeed, int numberOfWheels);
+void Car_delete(Car *car);
 char *Car_toString(void *car);
 int Car_getCapacity(void *car);
 int Car_getTopSpeed(void *car);

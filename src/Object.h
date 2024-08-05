@@ -8,8 +8,9 @@ typedef struct Object Object;
 typedef struct ObjectVtable ObjectVtable;
 
 /* Methods */
-Object *Object_create();
-void Object_destroy(Object *object);
+void Object_construct(void *object);
+Object *Object_new();
+void Object_delete(Object *object);
 unsigned long Object_hashCode(void *object);
 char *Object_toString(void *object);
 

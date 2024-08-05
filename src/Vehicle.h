@@ -1,6 +1,5 @@
 #ifndef VEHICLE_H
 #define VEHICLE_H
-
 #include <stdlib.h>
 
 /* Abstract Class Vehicle extends Object */
@@ -8,8 +7,9 @@ typedef struct Vehicle Vehicle;
 typedef struct VehicleVtable VehicleVtable;
 
 /* Methods */
-void Vehicle_init(void *vehicle, int capacity, int topSpeed);
-// No create or destroy methods because this is an *abstract* class
+void Vehicle_construct(void *vehicle, int capacity, int topSpeed);
+// No `new` or `delete` methods because this is an *abstract* class.
+// Technically, you *could* create an instance if you wanted to.
 int Vehicle_getCapacity(void *vehicle);
 int Vehicle_getTopSpeed(void *vehicle);
 

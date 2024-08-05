@@ -8,9 +8,9 @@ typedef struct Plane Plane;
 typedef struct PlaneVtable PlaneVtable;
 
 /* Methods */
-void Plane_init(void *plane, int capacity, int topSpeed);
-Plane *Plane_create(int capacity, int topSpeed);
-void Plane_destroy(Plane *plane);
+void Plane_construct(void *plane, int capacity, int topSpeed);
+Plane *Plane_new(int capacity, int topSpeed);
+void Plane_delete(Plane *plane);
 char *Plane_toString(void *plane);
 int Plane_getCapacity(void *plane);
 int Plane_getTopSpeed(void *plane);

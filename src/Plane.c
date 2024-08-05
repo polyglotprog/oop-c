@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "Plane.h"
 #include "Object.h"
+#include "Vehicle.h"
 
 char *Plane_toString(void *plane) {
   Plane *this = plane;
@@ -34,21 +35,22 @@ static PlaneVtable planeVtable = {
   .move = Plane_move
 };
 
-void Plane_init(void *plane, int capacity, int topSpeed) {
+void Plane_construct(void *plane, int capacity, int topSpeed) {
+  Vehicle_construct(plane, capacity, topSpeed); // call superconstructor
   Plane *this = plane;
   this->capacity = capacity;
   this->topSpeed = topSpeed;
 }
 
-Plane *Plane_create(int capacity, int topSpeed) {
+Plane *Plane_new(int capacity, int topSpeed) {
   puts("Creating Plane.");
   Plane *this = malloc(sizeof(Plane));
   this->vtable = &planeVtable;
-  Plane_init(this, capacity, topSpeed);
+  Plane_construct(this, capacity, topSpeed);
   return this;
 }
 
-void Plane_destroy(Plane *plane) {
-  puts("Destroying Plane.");
+void Plane_delete(Plane *plane) {
+  puts("Deleting Plane.");
   free(plane);
 }

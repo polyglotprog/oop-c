@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "Car.h"
 #include "Object.h"
+#include "Vehicle.h"
 
 char *Car_toString(void *car) {
   Car *this = car;
@@ -32,7 +33,7 @@ int Car_getNumberOfWheels(void *car) {
 
 void *Car_clone(void *car) {
   Car *this = car;
-  return Car_create(this->capacity, this->topSpeed, this->numberOfWheels);
+  return Car_new(this->capacity, this->topSpeed, this->numberOfWheels);
 }
 
 static CarVtable carVtable = {
@@ -51,23 +52,24 @@ static CarVtable carVtable = {
   .clone = Car_clone
 };
 
-void Car_init(void *car, int capacity, int topSpeed, int numberOfWheels) {
+void Car_construct(void *car, int capacity, int topSpeed, int numberOfWheels) {
+  Vehicle_construct(car, capacity, topSpeed); // call superconstructor
   Car *this = car;
-  this->capacity = capacity;
-  this->topSpeed = topSpeed;
   this->numberOfWheels = numberOfWheels;
   this->vtableCloneable = (CloneableVtable *)&carVtable.cloneableOffset;
 }
 
-Car *Car_create(int capacity, int topSpeed, int numberOfWheels) {
+Car *Car_new(int capacity, int topSpeed, int numberOfWheels) {
   puts("Creating Car.");
+
   Car *this = malloc(sizeof(Car));
   this->vtable = &carVtable;
-  Car_init(this, capacity, topSpeed, numberOfWheels);
+  Car_construct(this, capacity, topSpeed, numberOfWheels);
+
   return this;
 }
 
-void Car_destroy(Car *car) {
-  puts("Destroying Car.");
+void Car_delete(Car *car) {
+  puts("Deleting Car.");
   free(car);
 }

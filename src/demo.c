@@ -10,10 +10,10 @@
 #include "Vehicle.h"
 
 int main() {
-  Object *object = Object_create();
-  Boat *boat = Boat_create(4, 10);
-  Car *car = Car_create(5, 100, 4);
-  Plane *plane = Plane_create(6, 200);
+  Object *object = Object_new();
+  Boat *boat = Boat_new(4, 10);
+  Car *car = Car_new(5, 100, 4);
+  Plane *plane = Plane_new(6, 200);
 
   /*
    * Statically dispatch methods on object.
@@ -49,7 +49,7 @@ int main() {
   printf("Car  Capacity:   %d\n",  car->vtable->getCapacity(car));
   printf("Car  Top Speed:  %d\n",  car->vtable->getTopSpeed(car));
   printf("Car  # Wheels:   %d\n",  car->vtable->getNumberOfWheels(car));
-  printf("Car  Move:\n\t");
+  printf("Car  Move:\n    ");
   car->vtable->move(car);
 
   /*
@@ -80,18 +80,18 @@ int main() {
   printf("Car2 Capacity:   %d\n",  dispatch(car2, getCapacity));
   printf("Car2 Top Speed:  %d\n",  dispatch(car2, getTopSpeed));
   printf("Car2 # Wheels:   %d\n",  dispatch(car2, getNumberOfWheels));
-  printf("Car Move:\n\t");
+  printf("Car Move:\n    ");
   dispatch(car2, move);
 
   /*
    * This is C so we need to free allocated memory.
    */
   puts("\n*Free Allocated Memory*");
-  Object_destroy(object);
-  Boat_destroy(boat);
-  Car_destroy(car);
-  Car_destroy(car2);
-  Plane_destroy(plane);
+  Object_delete(object);
+  Boat_delete(boat);
+  Car_delete(car);
+  Car_delete(car2);
+  Plane_delete(plane);
 
   return 0;
 }

@@ -18,14 +18,17 @@ static ObjectVtable objectVtable = {
   .toString = Object_toString
 };
 
-Object *Object_create() {
-  puts("Creating Object.");
+void Object_construct(void *object) {
+}
+
+Object *Object_new() {
+  puts("Creating new Object.");
   Object *this = malloc(sizeof(Object));
   this->vtable = &objectVtable;
   return this;
 }
 
-void Object_destroy(Object *object) {
-  puts("Destroying Object.");
+void Object_delete(Object *object) {
+  puts("Deleting Object.");
   free(object);
 }

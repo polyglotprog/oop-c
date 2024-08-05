@@ -1,6 +1,8 @@
+#include "Object.h"
 #include "Vehicle.h"
 
-void Vehicle_init(void *vehicle, int capacity, int topSpeed) {
+void Vehicle_construct(void *vehicle, int capacity, int topSpeed) {
+  Object_construct(vehicle); // call superconstructor
   Vehicle *this = vehicle;
   this->capacity = capacity;
   this->topSpeed = topSpeed;

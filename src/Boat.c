@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "Boat.h"
 #include "Object.h"
+#include "Vehicle.h"
 
 char *Boat_toString(void *boat) {
   Boat *this = boat;
@@ -34,21 +35,21 @@ static BoatVtable boatVtable = {
   .move = Boat_move
 };
 
-void Boat_init(void *boat, int capacity, int topSpeed) {
-  Boat *this = boat;
-  this->capacity = capacity;
-  this->topSpeed = topSpeed;
+void Boat_construct(void *boat, int capacity, int topSpeed) {
+  Vehicle_construct(boat, capacity, topSpeed);
 }
 
-Boat *Boat_create(int capacity, int topSpeed) {
+Boat *Boat_new(int capacity, int topSpeed) {
   puts("Creating Boat.");
+
   Boat *this = malloc(sizeof(Boat));
   this->vtable = &boatVtable;
-  Boat_init(this, capacity, topSpeed);
+  Boat_construct(this, capacity, topSpeed);
+
   return this;
 }
 
-void Boat_destroy(Boat *boat) {
-  puts("Destroying Boat.");
+void Boat_delete(Boat *boat) {
+  puts("Deleting Boat.");
   free(boat);
 }

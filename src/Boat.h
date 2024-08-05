@@ -8,9 +8,9 @@ typedef struct Boat Boat;
 typedef struct BoatVtable BoatVtable;
 
 /* Methods */
-void Boat_init(void *boat, int capacity, int topSpeed);
-Boat *Boat_create(int capacity, int topSpeed);
-void Boat_destroy(Boat *boat);
+void Boat_construct(void *boat, int capacity, int topSpeed);
+Boat *Boat_new(int capacity, int topSpeed);
+void Boat_delete(Boat *boat);
 char *Boat_toString(void *boat);
 int Boat_getCapacity(void *boat);
 int Boat_getTopSpeed(void *boat);
