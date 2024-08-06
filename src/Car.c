@@ -4,11 +4,17 @@
 #include "Object.h"
 #include "Vehicle.h"
 
+typedef struct CarPrivateData {
+  int numberOfWheels;
+} CarPrivateData;
+
+#define my(field) (((CarPrivateData *)(this->_private)))->field
+
 char *Car_toString(void *car) {
   Car *this = car;
   char* string = malloc(64);
   sprintf(string, "Car[capacity=%d, topSpeed=%d, numberOfWheels=%d]",
-      this->capacity, this->topSpeed, this->numberOfWheels);
+      this->capacity, this->topSpeed, my(numberOfWheels));
   return string;
 }
 
@@ -28,12 +34,12 @@ void Car_move(void *car) {
 
 int Car_getNumberOfWheels(void *car) {
   Car *this = car;
-  return this->numberOfWheels;
+  return my(numberOfWheels);
 }
 
 void *Car_clone(void *car) {
   Car *this = car;
-  return Car_new(this->capacity, this->topSpeed, this->numberOfWheels);
+  return Car_new(this->capacity, this->topSpeed, my(numberOfWheels));
 }
 
 static CarVtable carVtable = {
@@ -55,7 +61,7 @@ static CarVtable carVtable = {
 void Car_construct(void *car, int capacity, int topSpeed, int numberOfWheels) {
   Vehicle_construct(car, capacity, topSpeed); // call superconstructor
   Car *this = car;
-  this->numberOfWheels = numberOfWheels;
+  my(numberOfWheels) = numberOfWheels;
   this->vtableCloneable = (CloneableVtable *)&carVtable.cloneableOffset;
 }
 
@@ -73,3 +79,5 @@ void Car_delete(Car *car) {
   puts("Deleting Car.");
   free(car);
 }
+
+#undef my

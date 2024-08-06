@@ -2,6 +2,7 @@
 #define CAR_H
 
 #include <stdlib.h>
+#include "byte.h"
 #include "Cloneable.h"
 
 /* Class Car extends Vehicle */
@@ -41,7 +42,9 @@ struct Car {
   int capacity;
   int topSpeed;
   /* Car Fields */
-  int numberOfWheels;
+  private(struct {
+    int a;
+  });
   /* Cloneable Pointer */
   CloneableVtable *vtableCloneable;
 };
