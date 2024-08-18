@@ -14,7 +14,7 @@ static CarVtable carVtable = {
   .move = Car_move,                   // implementation
   .getNumberOfWheels = Car_getNumberOfWheels,
   /* Cloneable Interface Slot */
-  .offsetCloneable = offsetof(CarVtable, offsetCloneable),
+  .offsetCloneable = offsetof(Car, vtableCloneable),
   .clone = Car_clone,                 // implementation
 };
 

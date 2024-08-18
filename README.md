@@ -59,7 +59,7 @@ Creating Car.
 
 *Car2 (Clone of Car)*
 Car2 Address:    0x556128120370
-Car2 String:     Car[capacity=4, topSpeed=30, numberOfWheels=0]
+Car2 String:     Car[capacity=5, topSpeed=120, numberOfWheels=4]
 Car2 Hash:       93875772457840
 Car2 Capacity:   5
 Car2 Top Speed:  100
