@@ -4,8 +4,10 @@
 #include "Object.h"
 #include "Vehicle.h"
 
-static BoatVtable boatVtable = {
+const BoatVtable Boat_vtable = {
   .offset = 0,
+  .construct = Boat_construct,
+  .destruct = Boat_destruct,
   .hashCode = Object_hashCode,        // inherit from Object
   .toString = Boat_toString,
   .getCapacity = Vehicle_getCapacity, // inherit from Vehicle
@@ -13,24 +15,13 @@ static BoatVtable boatVtable = {
   .move = Boat_move,                  // implementation
 };
 
-Boat *Boat_new(int capacity, int topSpeed) {
-  puts("Creating Boat.");
-
-  Boat *this = malloc(sizeof(Boat));
-  this->vtable = &boatVtable;
-  Boat_construct(this, capacity, topSpeed);
-
-  return this;
-}
-
 void Boat_construct(void *_this_, int capacity, int topSpeed) {
   Boat *this = _this_;
   Vehicle_construct(this, capacity, topSpeed); // call superconstructor
 }
 
-void Boat_delete(Boat *boat) {
+void Boat_destruct(void *_this_) {
   puts("Deleting Boat.");
-  free(boat);
 }
 
 char *Boat_toString(void *_this_) {

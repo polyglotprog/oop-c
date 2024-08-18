@@ -1,12 +1,15 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "new.h"
 #include "Car.h"
 #include "Object.h"
 #include "Vehicle.h"
 
-static CarVtable carVtable = {
+const CarVtable Car_vtable = {
   .offset = 0,
+  .construct = Car_construct,
+  .destruct = Car_destruct,
   .hashCode = Object_hashCode,        // inherit from Object
   .toString = Car_toString,
   .getCapacity = Vehicle_getCapacity, // inherit from Vehicle
@@ -23,22 +26,11 @@ void Car_construct(void *_this_,
   Car *this = _this_;
   Vehicle_construct(this, capacity, topSpeed); // call superconstructor
   this->numberOfWheels = numberOfWheels;
-  this->vtableCloneable = (CloneableVtable *)&carVtable.offsetCloneable;
+  this->vtableCloneable = (CloneableVtable *)&Car_vtable.offsetCloneable;
 }
 
-Car *Car_new(int capacity, int topSpeed, int numberOfWheels) {
-  puts("Creating Car.");
-
-  Car *this = malloc(sizeof(Car));
-  this->vtable = &carVtable;
-  Car_construct(this, capacity, topSpeed, numberOfWheels);
-
-  return this;
-}
-
-void Car_delete(Car *car) {
+void Car_destruct(void *_this_) {
   puts("Deleting Car.");
-  free(car);
 }
 
 char *Car_toString(void *_this_) {
@@ -60,5 +52,5 @@ int Car_getNumberOfWheels(void *_this_) {
 
 void *Car_clone(void *_this_) {
   Car *this = _this_;
-  return Car_new(this->capacity, this->topSpeed, this->numberOfWheels);
+  return new(Car, this->capacity, this->topSpeed, this->numberOfWheels);
 }

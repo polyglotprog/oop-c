@@ -10,8 +10,7 @@ typedef struct CarVtable CarVtable;
 
 /* Methods */
 void Car_construct(void *this, int capacity, int topSpeed, int numberOfWheels);
-Car *Car_new(int capacity, int topSpeed, int numberOfWheels);
-void Car_delete(Car *car);
+void Car_destruct(void *this);
 char *Car_toString(void *this);
 void Car_move(void *this);
 int Car_getNumberOfWheels(void *this);
@@ -20,6 +19,8 @@ void *Car_clone(void *this);
 /* Vtable */
 struct CarVtable {
   const size_t offset;
+  void (*construct)(void *this, int capacity, int topSpeed, int numberOfWheels);
+  void (*destruct)(void *this);
   /* Object Methods */
   unsigned long (*hashCode)(void *this);
   char *(*toString)(void *this);
@@ -34,6 +35,8 @@ struct CarVtable {
   void *(*clone)(void *this);
   /* Any number of additional interfaces could go here... */
 };
+
+extern const CarVtable Car_vtable;
 
 /* Data */
 struct Car {

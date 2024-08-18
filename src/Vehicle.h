@@ -9,7 +9,7 @@ typedef struct VehicleVtable VehicleVtable;
 
 /* Methods */
 void Vehicle_construct(void *this, int capacity, int topSpeed);
-// No `new` or `delete` methods because this is an *abstract* class.
+// No `destruct` method because this is an *abstract* class.
 // Technically, you *could* create an instance if you wanted to.
 int Vehicle_getCapacity(void *this);
 int Vehicle_getTopSpeed(void *this);
@@ -17,6 +17,8 @@ int Vehicle_getTopSpeed(void *this);
 /* Vtable */
 struct VehicleVtable {
   const size_t offset;
+  void (*construct)(void *this, int capacity, int topSpeed);
+  void (*destruct)(void *this);
   /* Object Methods */
   unsigned long (*hashCode)(void *this);
   char *(*toString)(void *this);
@@ -25,6 +27,8 @@ struct VehicleVtable {
   int (*getTopSpeed)(void *this);
   void (*move)(void *this); // abstract
 };
+
+/* No constant vtable since this class is abstract */
 
 /* Data */
 struct Vehicle {

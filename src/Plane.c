@@ -4,8 +4,10 @@
 #include "Object.h"
 #include "Vehicle.h"
 
-static PlaneVtable planeVtable = {
+const PlaneVtable Plane_vtable = {
   .offset = 0,
+  .construct = Plane_construct,
+  .destruct = Plane_destruct,
   .hashCode = Object_hashCode,        // inherit from Object
   .toString = Plane_toString,
   .getCapacity = Vehicle_getCapacity, // inherit from Vehicle
@@ -18,17 +20,8 @@ void Plane_construct(void *_this_, int capacity, int topSpeed) {
   Vehicle_construct(this, capacity, topSpeed); // call superconstructor
 }
 
-Plane *Plane_new(int capacity, int topSpeed) {
-  puts("Creating Plane.");
-  Plane *this = malloc(sizeof(Plane));
-  this->vtable = &planeVtable;
-  Plane_construct(this, capacity, topSpeed);
-  return this;
-}
-
-void Plane_delete(Plane *plane) {
+void Plane_destruct(void *_this_) {
   puts("Deleting Plane.");
-  free(plane);
 }
 
 char *Plane_toString(void *_this_) {

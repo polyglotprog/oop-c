@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "dispatch.h"
+#include "new.h"
 #include "Boat.h"
 #include "Car.h"
 #include "Cloneable.h"
@@ -10,10 +11,10 @@
 #include "Vehicle.h"
 
 int main() {
-  Object *object = Object_new();
-  Boat *boat = Boat_new(4, 30);
-  Car *car = Car_new(5, 120, 4);
-  Plane *plane = Plane_new(2, 200);
+  Object *object = new(Object);
+  Boat *boat = new(Boat, 4, 30);
+  Car *car = new(Car, 5, 120, 4);
+  Plane *plane = new(Plane, 2, 200);
 
   /*
    * Statically dispatch methods on object.
@@ -87,11 +88,11 @@ int main() {
    * This is C so we need to free allocated memory.
    */
   puts("\n*Free Allocated Memory*");
-  Object_delete(object);
-  Boat_delete(boat);
-  Car_delete(car);
-  Car_delete(car2);
-  Plane_delete(plane);
+  delete(object);
+  delete(boat);
+  delete(car);
+  delete(car2);
+  delete(plane);
 
   return 0;
 }

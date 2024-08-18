@@ -9,14 +9,15 @@ typedef struct PlaneVtable PlaneVtable;
 
 /* Methods */
 void Plane_construct(void *this, int capacity, int topSpeed);
-Plane *Plane_new(int capacity, int topSpeed);
-void Plane_delete(Plane *plane);
+void Plane_destruct(void *this);
 char *Plane_toString(void *this);
 void Plane_move(void *this);
 
 /* Vtable */
 struct PlaneVtable {
   const size_t offset;
+  void (*construct)(void *this, int capacity, int topSpeed);
+  void (*destruct)(void *this);
   /* Object Methods */
   unsigned long (*hashCode)(void *this);
   char *(*toString)(void *this);
@@ -25,6 +26,8 @@ struct PlaneVtable {
   int (*getTopSpeed)(void *this);
   void (*move)(void *this);
 };
+
+extern const PlaneVtable Plane_vtable;
 
 /* Data */
 struct Plane {

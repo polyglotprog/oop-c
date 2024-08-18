@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include "Object.h"
 
-static ObjectVtable objectVtable = {
+const ObjectVtable Object_vtable = {
   .offset = 0,
+  .construct = Object_construct,
+  .destruct = Object_destruct,
   .hashCode = Object_hashCode,
   .toString = Object_toString,
 };
@@ -11,16 +13,8 @@ static ObjectVtable objectVtable = {
 void Object_construct(void *_this_) {
 }
 
-Object *Object_new() {
-  puts("Creating new Object.");
-  Object *this = malloc(sizeof(Object));
-  this->vtable = &objectVtable;
-  return this;
-}
-
-void Object_delete(Object *object) {
+void Object_destruct(void *_this_) {
   puts("Deleting Object.");
-  free(object);
 }
 
 unsigned long Object_hashCode(void *_this_) {
