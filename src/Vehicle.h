@@ -2,6 +2,7 @@
 #define VEHICLE_H
 
 #include <stdlib.h>
+#include "private.h"
 
 /* Abstract Class Vehicle extends Object */
 typedef struct Vehicle Vehicle;
@@ -30,11 +31,15 @@ struct VehicleVtable {
 
 /* No constant vtable since this class is abstract */
 
+typedef struct VehicleData {
+  int capacity;
+  int topSpeed;
+} VehicleData;
+
 /* Data */
 struct Vehicle {
   const VehicleVtable *vtable;
-  int capacity;
-  int topSpeed;
+  private(VehicleData);
 };
 
 #endif

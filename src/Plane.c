@@ -28,7 +28,7 @@ char *Plane_toString(void *_this_) {
   Plane *this = _this_;
   char *string = malloc(64);
   sprintf(string, "Plane[capacity=%d, topSpeed=%d]",
-      this->capacity, this->topSpeed);
+      Vehicle_getCapacity(this), Vehicle_getTopSpeed(this));
   return string;
 }
 

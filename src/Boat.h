@@ -2,6 +2,8 @@
 #define BOAT_H
 
 #include <stdlib.h>
+#include "private.h"
+#include "Vehicle.h"
 
 /* Class Boat extends Vehicle */
 typedef struct Boat Boat;
@@ -33,8 +35,7 @@ extern const BoatVtable Boat_vtable;
 struct Boat {
   const BoatVtable *vtable;
   /* Vehicle Fields */
-  int capacity;
-  int topSpeed;
+  private(VehicleData);
 };
 
 #endif

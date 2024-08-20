@@ -2,7 +2,9 @@
 #define CAR_H
 
 #include <stdlib.h>
+#include "private.h"
 #include "Cloneable.h"
+#include "Vehicle.h"
 
 /* Class Car extends Vehicle */
 typedef struct Car Car;
@@ -38,14 +40,17 @@ struct CarVtable {
 
 extern const CarVtable Car_vtable;
 
+typedef struct CarData {
+  /* Vehicle Fields */
+  VehicleData vehicleData;
+  /* Car Fields */
+  int numberOfWheels;
+} CarData;
+
 /* Data */
 struct Car {
   const CarVtable *vtable;
-  /* Vehicle Fields */
-  int capacity;
-  int topSpeed;
-  /* Car Fields */
-  int numberOfWheels;
+  private(CarData);
   /* Cloneable Vtable Pointer */
   CloneableVtable *vtableCloneable;
 };

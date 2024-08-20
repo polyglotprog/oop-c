@@ -28,7 +28,7 @@ char *Boat_toString(void *_this_) {
   Boat *this = _this_;
   char *string = malloc(64);
   sprintf(string, "Boat[capacity=%d, topSpeed=%d]",
-      this->capacity, this->topSpeed);
+      Vehicle_getCapacity(this), Vehicle_getTopSpeed(this));
   return string;
 }
 

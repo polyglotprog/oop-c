@@ -2,6 +2,8 @@
 #define PLANE_H
 
 #include <stdlib.h>
+#include "private.h"
+#include "Vehicle.h"
 
 /* Class Plane extends Vehicle */
 typedef struct Plane Plane;
@@ -33,8 +35,7 @@ extern const PlaneVtable Plane_vtable;
 struct Plane {
   const PlaneVtable *vtable;
   /* Vehicle Fields */
-  int capacity;
-  int topSpeed;
+  private(VehicleData);
 };
 
 #endif

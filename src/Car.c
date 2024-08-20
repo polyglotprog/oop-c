@@ -21,11 +21,13 @@ const CarVtable Car_vtable = {
   .clone = Car_clone,                 // implementation
 };
 
+#define my(field) (((CarData *)(this->_private_)))->field
+
 void Car_construct(void *_this_,
     int capacity, int topSpeed, int numberOfWheels) {
   Car *this = _this_;
   Vehicle_construct(this, capacity, topSpeed); // call superconstructor
-  this->numberOfWheels = numberOfWheels;
+  my(numberOfWheels) = numberOfWheels;
   this->vtableCloneable = (CloneableVtable *)&Car_vtable.offsetCloneable;
 }
 
@@ -37,7 +39,7 @@ char *Car_toString(void *_this_) {
   Car *this = _this_;
   char *string = malloc(64);
   sprintf(string, "Car[capacity=%d, topSpeed=%d, numberOfWheels=%d]",
-      this->capacity, this->topSpeed, this->numberOfWheels);
+      Vehicle_getCapacity(this), Vehicle_getTopSpeed(this), my(numberOfWheels));
   return string;
 }
 
@@ -47,10 +49,13 @@ void Car_move(void *_this_) {
 
 int Car_getNumberOfWheels(void *_this_) {
   Car *this = _this_;
-  return this->numberOfWheels;
+  return my(numberOfWheels);
 }
 
 void *Car_clone(void *_this_) {
   Car *this = _this_;
-  return new(Car, this->capacity, this->topSpeed, this->numberOfWheels);
+  return new(Car,
+      Vehicle_getCapacity(this), Vehicle_getTopSpeed(this), my(numberOfWheels));
 }
+
+#undef my
