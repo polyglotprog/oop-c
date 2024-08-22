@@ -1,3 +1,5 @@
+![Object-Oriented Programming in C](assets/logo/oop-c.png)
+
 # Object-Oriented Programming in C
 
 It is well-known that languages like C++, Java, and Ruby provide support for
