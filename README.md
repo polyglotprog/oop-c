@@ -22,12 +22,23 @@ See [demo.c](src/demo.c) for an example of classic, Java-like OOP.
 
 A C compiler such as [GCC] is required to build the demo.
 
-Build and run:
+Build and run with [GCC]:
 
 ```console
 $ gcc -o demo src/*.c
 $ ./demo
 ```
+
+Build and run with [Make] + [GCC]:
+
+```console
+$ make
+Built demo
+$ ./demo
+```
+
+(To use a different compiler with Make, such as [Clang] or [MSVC], pass
+`CC=clang` or `CC=cl` to the `make` command, respectively.)
 
 Output (memory addresses may vary):
 ```console
@@ -80,7 +91,11 @@ Deleting Plane.
 <!------------------------------------------------------------------------------
   Links
 ------------------------------------------------------------------------------->
+[Clang]: https://clang.llvm.org/
 [GCC]: https://gcc.gnu.org/
+[Make]: https://www.gnu.org/software/make/
+[MSVC]: https://visualstudio.microsoft.com/vs/features/cplusplus/
+[null pointer]: https://en.wikipedia.org/wiki/Null_pointer
 [_Object-Oriented Programming With ANSI-C_]: https://www.cs.rit.edu/~ats/books/ooc.pdf
 [Object-Oriented Programming (OOP) in C]: https://www.codementor.io/@michaelsafyan/object-oriented-programming-in-c-du1081gw2
 [segfaults]: https://en.wikipedia.org/wiki/Segmentation_fault
