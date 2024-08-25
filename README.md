@@ -88,6 +88,61 @@ Deleting Car.
 Deleting Plane.
 ```
 
+## Class Hierarchy
+
+_Disclaimer: This class hierarchy is obviously incomplete and less than useful
+in a real codebase. It is intended primarily for research and instructional
+purposes._
+
+- At the root of the class hierachy is `Object` with `hashCode()` and
+  `toString()` methods &mdash; based on Java's [`Object`].
+- An abstract class, `Vehicle`, inherits from `Object`. `Vehicle` adds fields
+  `capacity` and `topSpeed` with getters to access them, as well as an abstract
+  method, `move()`.
+- `Boat`, `Car`, and `Plane` all inherit from `Vehicle`, implementing the
+  abstract method `move()`.
+- `Car` adds an additional field &mdash; `numberOfWheels` &mdash; with a getter
+  to access it.
+- There is one interface &mdash; `Cloneable` &mdash; which `Car` implements.
+
+```mermaid
+classDiagram
+  Object    <|-- Vehicle
+  Vehicle   <|-- Boat
+  Vehicle   <|-- Car
+  Vehicle   <|-- Plane
+  Cloneable <|.. Car : implements
+
+  class Object {
+    +hashCode()
+    +toString()
+  }
+  class Cloneable {
+    <<interface>>
+    +clone()*
+  }
+  class Vehicle {
+    <<abstract>>
+    -capacity
+    -topSpeed
+    +getCapacity()
+    +getTopSpeed()
+    +move()*
+  }
+  class Boat {
+    +move()
+  }
+  class Car {
+    -numberOfWheels
+    +getNumberOfWheels()
+    +move()
+    +clone()
+  }
+  class Plane {
+    +move()
+  }
+```
+
 <!------------------------------------------------------------------------------
   Links
 ------------------------------------------------------------------------------->
@@ -96,6 +151,7 @@ Deleting Plane.
 [Make]: https://www.gnu.org/software/make/
 [MSVC]: https://visualstudio.microsoft.com/vs/features/cplusplus/
 [null pointer]: https://en.wikipedia.org/wiki/Null_pointer
+[`Object`]: https://docs.oracle.com/en/java/javase/17/docs/api///java.base/java/lang/Object.html
 [_Object-Oriented Programming With ANSI-C_]: https://www.cs.rit.edu/~ats/books/ooc.pdf
 [Object-Oriented Programming (OOP) in C]: https://www.codementor.io/@michaelsafyan/object-oriented-programming-in-c-du1081gw2
 [segfaults]: https://en.wikipedia.org/wiki/Segmentation_fault
